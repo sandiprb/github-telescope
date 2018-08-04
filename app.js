@@ -11,8 +11,8 @@ var app = express();
 
 app.set('view engine', 'html');
 nunjucks.configure('views', {
-    autoescape: true,
-    express: app
+	autoescape: true,
+	express: app,
 });
 
 app.use(logger('dev'));
