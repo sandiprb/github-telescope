@@ -3,8 +3,12 @@ printWidth: 80
 tabWidth: 2
 useTabs: true
 semi: true
-bracketSpacing: true
-jsxBracketSameLine: false
-parser: typescript
 singleQuote: true
 requirePragma: false
+overrides:
+- files: "*.tsx"
+  options:
+    semi: false
+    bracketSpacing: true
+    jsxBracketSameLine: true
+    parser: typescript

@@ -1,0 +1,3 @@
+//Actions
+export const FETCH_TEST_ACTION = 'FETCH_TEST_ACTION'
+export const RECIEVE_TEST_ACTION = 'RECIEVE_TEST_ACTION'

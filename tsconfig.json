@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"outDir": "./build/",
+		"sourceMap": true,
+		"noImplicitAny": false,
+		"removeComments": true,
+		"module": "commonjs",
+		"target": "es5",
+		"jsx": "react",
+		"lib": ["dom", "es5", "es2015", "es2015.promise"]
+	},
+	"exclude": ["node_modules", "build"],
+	"include": ["**/*.ts", "**/*.tsx"]
+}
