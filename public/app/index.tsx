@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { AppContainer } from 'react-hot-loader'
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
@@ -40,4 +41,15 @@ const Root = () => (
 	</Provider>
 )
 
-ReactDOM.render(<Root />, document.getElementById('app'))
+const render = Component => {
+	ReactDOM.render(<Component />, document.getElementById('app'))
+}
+
+render(Root)
+
+declare var module: any
+if (module.hot) {
+	module.hot.accept(Root, () => {
+		render(Root)
+	})
+}

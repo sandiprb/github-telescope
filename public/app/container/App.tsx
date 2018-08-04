@@ -17,12 +17,12 @@ class App extends React.Component<IAppProps, {}> {
 	}
 
 	render() {
-		return <div>Hello!</div>
+		return <div>Hello...</div>
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state)
+	return {}
 	// const { users } = state
 	// return {
 	// 	users,

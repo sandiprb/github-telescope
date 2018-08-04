@@ -6,7 +6,10 @@ const appPath = `${projectPath}/public/app`;
 
 module.exports = {
 	entry: {
-		app: `${appPath}/index.tsx`,
+		app: [
+			'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+			`${appPath}/index.tsx`,
+		],
 		vendor: [
 			'react',
 			'react-dom',
@@ -20,9 +23,14 @@ module.exports = {
 		],
 	},
 
+	mode: 'development',
+
 	output: {
 		path: `${projectPath}/public/build/`,
 		filename: '[name].bundle.js',
+		publicPath: `./static/build/`,
+		hotUpdateChunkFilename: 'hot/hot-update.js',
+		hotUpdateMainFilename: 'hot/hot-update.json',
 	},
 
 	resolve: {
@@ -43,8 +51,13 @@ module.exports = {
 				test: /\.(png|jpg|svg)$/,
 				loader: 'url-loader',
 			},
+			{
+				test: /\.tsx$/,
+				loaders: ['react-hot-loader/webpack', 'babel'],
+				include: path.join(__dirname, 'src'),
+			},
 		],
 	},
 
-	plugins: [],
+	plugins: [new webpack.HotModuleReplacementPlugin()],
 };
