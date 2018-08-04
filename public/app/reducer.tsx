@@ -1,33 +1,29 @@
 import { combineReducers } from 'redux'
 import produce from 'immer'
-import { IReducerState, IAction } from './interface'
-import { FETCH_TEST_ACTION, RECIEVE_TEST_ACTION } from './constants'
+import { IStarredReposState, IAction } from './interface'
+import { FETCH_STARRED_REPOS, RECIEVE_STARRED_REPOS } from './constants'
 
-const getTest1Data = () => ({ key: '' })
-
-const getDefaultQuoteState = (): IReducerState => ({
-	test1: getTest1Data(),
+const initState: IStarredReposState = {
 	isLoading: false,
-})
-const initState = getDefaultQuoteState()
+	repos: [],
+}
 
 const reducer = (
-	state: Partial<IReducerState> = initState,
+	state: Partial<IStarredReposState> = initState,
 	action: IAction
-): Partial<IReducerState> =>
+): Partial<IStarredReposState> =>
 	produce(state, draft => {
 		switch (action.type) {
-			case FETCH_TEST_ACTION:
+			case FETCH_STARRED_REPOS:
 				draft.isLoading = true
 				return
-			case RECIEVE_TEST_ACTION:
-				console.log(action)
+			case RECIEVE_STARRED_REPOS:
 				draft.isLoading = false
-				draft.test1 = action.payload.data
+				draft.repos = action.payload.data
 				return
 		}
 	})
 
 export default combineReducers({
-	state: reducer,
+	starredRepos: reducer,
 })

@@ -1,8 +1,13 @@
-import { FETCH_TEST_ACTION, RECIEVE_TEST_ACTION } from './constants'
+import { FETCH_STARRED_REPOS, RECIEVE_STARRED_REPOS } from './constants'
 
-export const fetchTestAction = () => ({ type: FETCH_TEST_ACTION })
-export const recievedTestAction = data => ({
-	type: RECIEVE_TEST_ACTION,
+export const fetchStarredRepos = (username: string) => ({
+	type: FETCH_STARRED_REPOS,
+	payload: {
+		username,
+	},
+})
+export const recievedStarredRepos = data => ({
+	type: RECIEVE_STARRED_REPOS,
 	payload: {
 		data,
 	},
