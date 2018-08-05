@@ -79,7 +79,7 @@ export interface IRepo {
 	mirror_url?: any
 	archived: boolean
 	open_issues_count: number
-	license: ILicense
+	license?: ILicense
 	forks: number
 	open_issues: number
 	watchers: number

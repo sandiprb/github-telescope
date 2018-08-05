@@ -45,7 +45,17 @@ module.exports = {
 			},
 			{
 				test: /\.pcss$/,
-				loader: 'style-loader!css-loader!postcss-loader',
+				use: [
+					{
+						loader: 'style-loader',
+					},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'postcss-loader',
+					},
+				],
 			},
 			{
 				test: /\.(png|jpg|svg)$/,

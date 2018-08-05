@@ -1,0 +1,112 @@
+@define-mixin textEllipses {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@define-mixin transition $range: all, $time: 0.4s,
+	$ease: cubic-bezier(0.25, 0.8, 0.25, 1) {
+	transition: $range $time $ease;
+}
+
+@keyframes slideTopLeft {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.repo-card {
+	&__wrapper {
+		margin-bottom: 30px;
+		position: relative;
+	}
+	&__item {
+		padding: 16px;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 2px;
+		height: 100%;
+		z-index: 1;
+	}
+	&__repo-name {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	&__repo-date {
+		font-size: 12px;
+		opacity: 0.5;
+	}
+	&__repo-desc {
+		margin-top: 8px;
+		margin-bottom: 8px;
+		font-size: 12px;
+		color: rgba(0, 0, 0, 0.5);
+		min-height: 72px;
+	}
+	&__stats {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	&__stats-item {
+		flex: 1;
+		padding-left: 20px;
+		font-size: 10px;
+		height: 20px;
+		line-height: 20px;
+		margin-bottom: 6px;
+		cursor: pointer;
+		@mixin textEllipses;
+
+		&--star {
+			background: url('../imgs/ic_star.svg') no-repeat left center;
+			background-size: 14px;
+		}
+		&--fork {
+			background: url('../imgs/ic_fork.svg') no-repeat left center;
+			background-size: 14px;
+		}
+		&--license {
+			background: url('../imgs/ic_law.svg') no-repeat left center;
+			background-size: 14px;
+		}
+		&--watch {
+			background: url('../imgs/ic_eye.svg') no-repeat left center;
+			background-size: 14px;
+		}
+		&--issue {
+			background: url('../imgs/ic_bug.svg') no-repeat left center;
+			background-size: 14px;
+		}
+	}
+	&__detail-info {
+		width: 300px;
+		box-shadow: 5px 6px 23px 0px rgba(0, 0, 0, 0.16);
+		position: absolute;
+		top: 50px;
+		left: 50px;
+		z-index: 2;
+		background-color: #fff;
+		@mixin transition;
+		animation: slideTopLeft 0.35s forwards;
+		transform-origin: top left;
+
+		& .repo-card__repo-desc {
+			min-height: auto;
+		}
+	}
+	&__owner {
+		&-name {
+		}
+		&-img-wrapper {
+			margin-right: 10px;
+			width: 140px;
+			img {
+				width: 140px;
+				height: 140px;
+			}
+		}
+	}
+}

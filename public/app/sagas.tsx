@@ -8,8 +8,8 @@ import { getNextLink } from './reducer'
 import { history } from './index'
 
 const ENDPOINTS = {
-	starredRepos: (username: string) =>
-		`https://api.github.com/users/${username}/starred?per_page=100`,
+	starredRepos: (username: string) => 'https://api.myjson.com/bins/yf06w',
+	// `https://api.github.com/users/${username}/starred?per_page=100`,
 }
 
 const API = {

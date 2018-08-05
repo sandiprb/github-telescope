@@ -12,3 +12,31 @@ export function extractLinksFromHeaders(headers: AxiosResponse['headers']) {
 		return { nextLink: undefined, lastLink: undefined }
 	}
 }
+
+const MONTH_MAP = {
+	0: 'Jan',
+	1: 'Feb',
+	2: 'March',
+	3: 'Apr',
+	4: 'May',
+	5: 'Jun',
+	6: 'July',
+	7: 'Aug',
+	8: 'Sep',
+	9: 'Oct',
+	10: 'Nov',
+	11: 'Dec',
+}
+
+export function timeStampToDate(dateString: string) {
+	try {
+		const [date, time] = dateString.split('T')
+		const generateDate = new Date(date)
+		return `${generateDate.getDate()} ${
+			MONTH_MAP[generateDate.getMonth()]
+		} ${generateDate.getFullYear()}`
+	} catch (error) {
+		console.warn(error)
+		return dateString
+	}
+}
