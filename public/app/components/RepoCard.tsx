@@ -22,6 +22,26 @@ function RepoIconStat({
 	)
 }
 
+export function TrimmedText({
+	text,
+	maxLength = 99,
+}: {
+	text: string
+	maxLength?: number
+}) {
+	if (!text) {
+		return null
+	}
+
+	return (
+		<div>
+			{text && text.length > maxLength
+				? `${text.substring(0, maxLength)}...`
+				: text}
+		</div>
+	)
+}
+
 type IRepoCardItem = { repo: IRepo; isDetailedCard?: boolean }
 
 function RepoCardItem({ repo, isDetailedCard = false }: IRepoCardItem) {
@@ -29,34 +49,32 @@ function RepoCardItem({ repo, isDetailedCard = false }: IRepoCardItem) {
 		<div className="repo-card__item">
 			{isDetailedCard && (
 				<>
-					<div className="repo-card__owner">
-						<div className="repo-card__owner-img-wrapper">
-							<img
-								className="img-thumbnail"
-								src={repo.owner.avatar_url}
-								alt={repo.owner.login}
-							/>
+					<a href={repo.owner.html_url} target="_blank">
+						<div className="repo-card__owner">
+							<div className="repo-card__owner-img-wrapper">
+								<img
+									className="img-thumbnail"
+									src={repo.owner.avatar_url}
+									alt={repo.owner.login}
+								/>
+							</div>
+							<div className="repo-card__owner-name">@{repo.owner.login}</div>
 						</div>
+					</a>
 
-						<div className="repo-card__owner-name">
-							<a href={repo.owner.html_url} target="_blank">
-								@{repo.owner.login}
-							</a>
-						</div>
-					</div>
 					<hr />
 				</>
 			)}
 			<div className="repo-card__repo-name">{repo.name}</div>
-			{}
 			<div className="repo-card__repo-date">
-				{' '}
-				Updated: {timeStampToDate(repo.updated_at)}{' '}
+				Updated: {timeStampToDate(repo.updated_at)}
 			</div>
 			<div className="repo-card__repo-desc">
-				{repo.description && repo.description.length > 99
-					? `${repo.description.substring(0, 90)}...`
-					: repo.description}
+				{isDetailedCard ? (
+					repo.description
+				) : (
+					<TrimmedText text={repo.description} />
+				)}
 			</div>
 			<div className="repo-card__stats">
 				<RepoIconStat text={repo.stargazers_count} iconClassName="star" />
