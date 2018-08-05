@@ -2,7 +2,7 @@
 
 See all your github starred repositories at one single palce. Sort and filter by stars, forks, language etc.
 
-## Technologies User
+## Technologies Used
 
 Front-End
     - React + Redux + TypeScript + Post CSS
