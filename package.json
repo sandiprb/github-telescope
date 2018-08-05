@@ -1,10 +1,10 @@
 {
-	"name": "gitstars",
+	"name": "github-telescope",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
 		"start": "nodemon ./bin/www",
-		"dev": "DEBUG=gitstars:* npm start",
+		"dev": "DEBUG=github-telescope:* npm start",
 		"precommit": "pretty-quick --staged",
 		"clean": "rm -rf ./public/build"
 	},
