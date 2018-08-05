@@ -2,6 +2,20 @@ import * as React from 'react'
 import { IOwner, IRepo } from '../interface'
 import { timeStampToDate } from '../Utils'
 
+//#region Bootstrap Components
+export const Container = ({
+	fluid = false,
+	children,
+}: {
+	fluid?: boolean
+	children: JSX.Element
+}) => <div className={fluid ? 'container-fluid' : 'container'}>{children}</div>
+
+export const Row = ({ children }: { children: JSX.Element }) => (
+	<div className="row">{children}</div>
+)
+//#endregion
+
 type ITrimmedText = {
 	text: string
 	maxLength?: number
@@ -31,7 +45,6 @@ export const RepoOwner = ({ owner }: { owner: IOwner }) => (
 				<div className="repo-card__owner-name">@{owner.login}</div>
 			</div>
 		</a>
-		<hr />
 	</>
 )
 
@@ -95,7 +108,9 @@ type IRepoDetails = {
 
 export const RepoDetails = ({ repo, showFullDescription }: IRepoDetails) => (
 	<>
-		<div className="repo-card__repo-name">{repo.name}</div>
+		<a href={repo.html_url} target="_blank">
+			<div className="repo-card__repo-name">{repo.name}</div>
+		</a>
 		<div className="repo-card__repo-date">
 			Updated: {timeStampToDate(repo.updated_at)}
 		</div>
@@ -103,7 +118,7 @@ export const RepoDetails = ({ repo, showFullDescription }: IRepoDetails) => (
 			{showFullDescription ? (
 				repo.description
 			) : (
-				<TrimmedText text={repo.description} />
+				<TrimmedText text={repo.description} maxLength={60} />
 			)}
 		</div>
 	</>

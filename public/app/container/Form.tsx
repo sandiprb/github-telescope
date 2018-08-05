@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { fetchStarredRepos } from '../actions'
-// import '../css/App.pcss'
+import '../styles/App.pcss'
 import { IRepo } from '../interface'
+import { Container, Row } from '../components/SubComponents'
 
 type IFormEvent = React.FormEvent<HTMLFormElement>
 
 interface IAppProps {
 	history?: any
 	repos?: IRepo[]
-	nextLink?: string
 }
 
 interface IAppStates {
@@ -21,7 +21,7 @@ class App extends React.Component<IAppProps, IAppStates> {
 	constructor(props) {
 		super(props)
 		this.state = {
-			username: 'sandiprb',
+			username: '',
 		}
 	}
 
@@ -31,69 +31,63 @@ class App extends React.Component<IAppProps, IAppStates> {
 		const { username } = this.state
 
 		if (!username) {
-			this.setState({ errUsername: 'Please Enter a Valid Username' })
+			this.setState({ errUsername: 'Please enter your Github username' })
 			return
 		}
-		console.log(this.props.history.push(`/${username}`))
+		this.props.history.push(`/${username}`)
 	}
 
-	private handleLoadMore = e => {
-		e.preventDefault()
-		// this.props.fetchStarredRepos(this.state.username)
+	private handleUsernameChange = e => {
+		const username = e.target.value
+		this.setState({ username, errUsername: '' })
 	}
 
 	render() {
-		const { repos = [], nextLink = '' } = this.props
+		const { repos = [] } = this.props
 		const { errUsername, username } = this.state
 
 		return (
-			<div>
-				<form action="" onSubmit={this.handleSubmitForm}>
-					<div>
-						<input
-							type="text"
-							value={username}
-							onChange={e => this.setState({ username: e.target.value })}
-						/>
+			<Container>
+				<Row>
+					<div className="col-sm-6 offset-sm-3">
+						<div className="logo-telescope" />
+						<form action="" onSubmit={this.handleSubmitForm}>
+							<div>
+								<input
+									className="form-control form-control-lg"
+									type="text"
+									value={username}
+									onChange={this.handleUsernameChange}
+									placeholder="Enter Github Username.."
+								/>
 
-						{errUsername}
+								{errUsername && <div className="error">{errUsername}</div>}
+							</div>
+							<br />
+
+							<div className="text-center">
+								<input
+									type="submit"
+									value="FIND MY STARS"
+									className="btn btn-black btn-lg"
+								/>
+							</div>
+						</form>
 					</div>
-					<input type="submit" value="Submit" />
-				</form>
-				{!!repos.length && (
-					<ul>
-						{repos.map(repo => {
-							return (
-								<li key={repo.url}>
-									<a href={repo.html_url} target="_blank">
-										{repo.name} * {repo.stargazers_count}
-									</a>
-									<p>{repo.description}</p>
-								</li>
-							)
-						})}
-					</ul>
-				)}
-				{nextLink && <button onClick={this.handleLoadMore}> Load More </button>}
-			</div>
+				</Row>
+			</Container>
 		)
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
 	const { starredRepos = {} } = state
-	console.log(ownProps)
 	return {
 		history: ownProps.history,
-		// repos: starredRepos.repos,
-		// nextLink: starredRepos.nextLink,
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
-	// fetchStarredRepos: (username: string) =>
-	// 	dispatch(fetchStarredRepos(username)),
-})
+const mapDispatchToProps = dispatch => ({})
 
 export default connect(
 	mapStateToProps,

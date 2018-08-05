@@ -37,7 +37,8 @@ export function RepoCards({
 				<div
 					className="col-md-4 repo-card__wrapper"
 					key={repo.node_id}
-					onMouseEnter={() => onCardDetail(repo.node_id)}>
+					onMouseEnter={() => onCardDetail(repo.node_id)}
+					onMouseLeave={() => onCardDetail('')}>
 					<RepoCardItem repo={repo} key={repo.node_id} />
 
 					{detailCardNodeId === repo.node_id && (
