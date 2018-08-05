@@ -1,7 +1,7 @@
 {
 	"name": "github-telescope",
-	"version": "0.0.0",
-	"private": true,
+	"version": "0.0.1",
+	"private": false,
 	"scripts": {
 		"start": "nodemon ./bin/www",
 		"dev": "DEBUG=github-telescope:* npm start",
