@@ -5,6 +5,7 @@ import { recievedStarredRepos } from './actions'
 import { FETCH_STARRED_REPOS } from './constants'
 import { extractLinksFromHeaders } from './Utils'
 import { getNextLink } from './reducer'
+import { history } from './index'
 
 const ENDPOINTS = {
 	starredRepos: (username: string) =>
@@ -30,7 +31,8 @@ function* fetchStarredRepos(action: IAction) {
 		const { repos, nextLink } = yield call(API.fetchStarredRepos, uri)
 		yield put(recievedStarredRepos(repos, nextLink))
 	} catch (e) {
-		console.log(e)
+		console.warn(e)
+		history.push('/404')
 	}
 }
 

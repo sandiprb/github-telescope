@@ -1,22 +1,25 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { AppContainer } from 'react-hot-loader'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 
-import App from './container/App'
+import Index from './container/Form'
 
 import rootReducer from './reducer'
 import rootSaga from './sagas'
+import Dashboard from './container/Dashboard'
 
 // const customMiddleWare = store => next => action => {
 // 	console.log('Middleware triggered:', action)
 // 	return next(action)
 // }
+
+export const history = createBrowserHistory()
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -34,9 +37,11 @@ sagaMiddleware.run(rootSaga)
 const Root = () => (
 	<Provider store={store}>
 		<Router>
-			<>
-				<Route path="/" component={App} />
-			</>
+			<Switch>
+				<Route exact path="/" component={Index} />
+				<Route exact path="/404" component={() => <div>404</div>} />
+				<Route exact path="/:username" component={Dashboard} />
+			</Switch>
 		</Router>
 	</Provider>
 )

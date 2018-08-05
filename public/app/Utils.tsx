@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios'
 
 export function extractLinksFromHeaders(headers: AxiosResponse['headers']) {
-	debugger
 	try {
 		const [nextLink, ...lastLink] = headers.link
 			.split(',')
@@ -10,5 +9,6 @@ export function extractLinksFromHeaders(headers: AxiosResponse['headers']) {
 		return { nextLink, lastLink }
 	} catch (error) {
 		console.warn(error)
+		return { nextLink: undefined, lastLink: undefined }
 	}
 }

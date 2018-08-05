@@ -4,9 +4,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var nunjucks = require('nunjucks');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 
 //#region Webpack HMR Middelware
@@ -39,7 +36,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', require('./routes/index'));
 
 module.exports = app;

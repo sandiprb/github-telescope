@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="13px" viewBox="0 0 14 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Star</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-553.000000, -438.000000)" fill="#4A4A4A">
+            <g id="row2" transform="translate(540.000000, 302.000000)">
+                <g id="card">
+                    <g id="footer" transform="translate(13.000000, 135.000000)">
+                        <g id="stars">
+                            <polygon id="Star" points="7 11.5 2.88550323 13.663119 3.67130219 9.08155948 0.342604386 5.83688104 4.94275162 5.16844052 7 1 9.05724838 5.16844052 13.6573956 5.83688104 10.3286978 9.08155948 11.1144968 13.663119"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -7,7 +7,7 @@ import { IRepo } from '../interface'
 type IFormEvent = React.FormEvent<HTMLFormElement>
 
 interface IAppProps {
-	fetchStarredRepos: (username: string) => void
+	history?: any
 	repos?: IRepo[]
 	nextLink?: string
 }
@@ -34,12 +34,12 @@ class App extends React.Component<IAppProps, IAppStates> {
 			this.setState({ errUsername: 'Please Enter a Valid Username' })
 			return
 		}
-		this.props.fetchStarredRepos(this.state.username)
+		console.log(this.props.history.push(`/${username}`))
 	}
 
 	private handleLoadMore = e => {
 		e.preventDefault()
-		this.props.fetchStarredRepos(this.state.username)
+		// this.props.fetchStarredRepos(this.state.username)
 	}
 
 	render() {
@@ -82,15 +82,17 @@ class App extends React.Component<IAppProps, IAppStates> {
 
 const mapStateToProps = (state, ownProps) => {
 	const { starredRepos = {} } = state
+	console.log(ownProps)
 	return {
-		repos: starredRepos.repos,
-		nextLink: starredRepos.nextLink,
+		history: ownProps.history,
+		// repos: starredRepos.repos,
+		// nextLink: starredRepos.nextLink,
 	}
 }
 
 const mapDispatchToProps = dispatch => ({
-	fetchStarredRepos: (username: string) =>
-		dispatch(fetchStarredRepos(username)),
+	// fetchStarredRepos: (username: string) =>
+	// 	dispatch(fetchStarredRepos(username)),
 })
 
 export default connect(
