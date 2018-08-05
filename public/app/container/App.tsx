@@ -4,9 +4,12 @@ import { fetchStarredRepos } from '../actions'
 // import '../css/App.pcss'
 import { IRepo } from '../interface'
 
+type IFormEvent = React.FormEvent<HTMLFormElement>
+
 interface IAppProps {
 	fetchStarredRepos: (username: string) => void
 	repos?: IRepo[]
+	nextLink?: string
 }
 
 interface IAppStates {
@@ -18,26 +21,30 @@ class App extends React.Component<IAppProps, IAppStates> {
 	constructor(props) {
 		super(props)
 		this.state = {
-			username: '',
+			username: 'sandiprb',
 		}
 	}
 
-	private handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-		debugger
+	private handleSubmitForm = (e: IFormEvent) => {
 		e.preventDefault()
 
 		const { username } = this.state
 
 		if (!username) {
 			this.setState({ errUsername: 'Please Enter a Valid Username' })
+			return
 		}
+		this.props.fetchStarredRepos(this.state.username)
+	}
 
+	private handleLoadMore = e => {
+		e.preventDefault()
 		this.props.fetchStarredRepos(this.state.username)
 	}
 
 	render() {
-		const { repos = [] } = this.props
-		const { username, errUsername } = this.state
+		const { repos = [], nextLink = '' } = this.props
+		const { errUsername, username } = this.state
 
 		return (
 			<div>
@@ -45,6 +52,7 @@ class App extends React.Component<IAppProps, IAppStates> {
 					<div>
 						<input
 							type="text"
+							value={username}
 							onChange={e => this.setState({ username: e.target.value })}
 						/>
 
@@ -66,6 +74,7 @@ class App extends React.Component<IAppProps, IAppStates> {
 						})}
 					</ul>
 				)}
+				{nextLink && <button onClick={this.handleLoadMore}> Load More </button>}
 			</div>
 		)
 	}
@@ -75,6 +84,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { starredRepos = {} } = state
 	return {
 		repos: starredRepos.repos,
+		nextLink: starredRepos.nextLink,
 	}
 }
 

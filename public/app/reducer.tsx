@@ -3,9 +3,17 @@ import produce from 'immer'
 import { IStarredReposState, IAction } from './interface'
 import { FETCH_STARRED_REPOS, RECIEVE_STARRED_REPOS } from './constants'
 
+//#region Selectors
+export const getStarredReposState = (state): IStarredReposState =>
+	state.starredRepos
+export const getNextLink = state => getStarredReposState(state).nextLink
+
+//#endregion
+
 const initState: IStarredReposState = {
 	isLoading: false,
 	repos: [],
+	nextLink: '',
 }
 
 const reducer = (
@@ -19,7 +27,8 @@ const reducer = (
 				return
 			case RECIEVE_STARRED_REPOS:
 				draft.isLoading = false
-				draft.repos = action.payload.data
+				draft.repos = [...draft.repos, ...action.payload.repos]
+				draft.nextLink = action.payload.nextLink
 				return
 		}
 	})

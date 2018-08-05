@@ -1,5 +1,6 @@
 export interface IStarredReposState {
 	isLoading?: boolean
+	nextLink?: string
 	repos?: IRepo[]
 }
 
