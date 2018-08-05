@@ -1,102 +1,21 @@
 import * as React from 'react'
 import { IRepo } from '../interface'
 import '../styles/RepoCard.pcss'
-import { timeStampToDate } from '../Utils'
-
-function RepoIconStat({
-	iconClassName,
-	text,
-}: {
-	iconClassName: string
-	text: string | number
-}) {
-	if (!text) {
-		return null
-	}
-
-	return (
-		<div
-			className={`repo-card__stats-item repo-card__stats-item--${iconClassName}`}>
-			{text}
-		</div>
-	)
-}
-
-export function TrimmedText({
-	text,
-	maxLength = 99,
-}: {
-	text: string
-	maxLength?: number
-}) {
-	if (!text) {
-		return null
-	}
-
-	return (
-		<div>
-			{text && text.length > maxLength
-				? `${text.substring(0, maxLength)}...`
-				: text}
-		</div>
-	)
-}
+import {
+	RepoOwner,
+	RepoIconStat,
+	RepoDetails,
+	RepoIconsStats,
+} from './SubComponents'
 
 type IRepoCardItem = { repo: IRepo; isDetailedCard?: boolean }
 
 function RepoCardItem({ repo, isDetailedCard = false }: IRepoCardItem) {
 	return (
 		<div className="repo-card__item">
-			{isDetailedCard && (
-				<>
-					<a href={repo.owner.html_url} target="_blank">
-						<div className="repo-card__owner">
-							<div className="repo-card__owner-img-wrapper">
-								<img
-									className="img-thumbnail"
-									src={repo.owner.avatar_url}
-									alt={repo.owner.login}
-								/>
-							</div>
-							<div className="repo-card__owner-name">@{repo.owner.login}</div>
-						</div>
-					</a>
-
-					<hr />
-				</>
-			)}
-			<div className="repo-card__repo-name">{repo.name}</div>
-			<div className="repo-card__repo-date">
-				Updated: {timeStampToDate(repo.updated_at)}
-			</div>
-			<div className="repo-card__repo-desc">
-				{isDetailedCard ? (
-					repo.description
-				) : (
-					<TrimmedText text={repo.description} />
-				)}
-			</div>
-			<div className="repo-card__stats">
-				<RepoIconStat text={repo.stargazers_count} iconClassName="star" />
-				<RepoIconStat text={repo.watchers_count} iconClassName="watch" />
-				<RepoIconStat text={repo.forks_count} iconClassName="fork" />
-			</div>
-			{isDetailedCard && (
-				<>
-					<div className="repo-card__stats">
-						<RepoIconStat text={repo.open_issues_count} iconClassName="issue" />
-						{repo.license && (
-							<RepoIconStat
-								text={repo.license.spdx_id}
-								iconClassName="license"
-							/>
-						)}
-
-						<div className="repo-card__stats-item" />
-					</div>
-					<hr />
-				</>
-			)}
+			{isDetailedCard && <RepoOwner owner={repo.owner} />}
+			<RepoDetails repo={repo} showFullDescription={isDetailedCard} />
+			<RepoIconsStats repo={repo} showTopOnly={!isDetailedCard} />
 		</div>
 	)
 }
@@ -121,8 +40,7 @@ export function RepoCards({
 					onMouseEnter={() => onCardDetail(repo.node_id)}>
 					<RepoCardItem repo={repo} key={repo.node_id} />
 
-					{/*'MDEwOlJlcG9zaXRvcnkzOTk3OTkzNg==' */
-					detailCardNodeId === repo.node_id && (
+					{detailCardNodeId === repo.node_id && (
 						<div className="repo-card__detail-info">
 							<RepoCardItem
 								repo={repo}
