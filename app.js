@@ -7,21 +7,22 @@ var nunjucks = require('nunjucks');
 var app = express();
 
 //#region Webpack HMR Middelware
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
-const compiler = webpack(webpackConfig);
-
-app.use(
-	require('webpack-dev-middleware')(compiler, {
-		writeToDisk: true,
-		noInfo: false,
-		stats: false,
-		stats: {
-			colors: true,
-		},
-	})
-);
-app.use(require('webpack-hot-middleware')(compiler));
+if (app.get('env') === 'development') {
+	const webpack = require('webpack');
+	const webpackConfig = require('./webpack.config');
+	const compiler = webpack(webpackConfig);
+	app.use(
+		require('webpack-dev-middleware')(compiler, {
+			writeToDisk: true,
+			noInfo: false,
+			stats: false,
+			stats: {
+				colors: true,
+			},
+		})
+	);
+	app.use(require('webpack-hot-middleware')(compiler));
+}
 //#endregion
 
 app.set('view engine', 'html');
