@@ -25,7 +25,7 @@ I built this sheerly to solve my problem of not being go back and find repositor
   - [ ] Add custom endpoints wrappers for Github API endpoints.
   - [ ] Request Github endpoints with OAuth token
   - [ ] Implement redis to cache Github requests for certain period.
-- [ ] Deployment
+- [x] Deployment
   - [x] Add webpack production build config.
   - [x] Configure webpack devserver for dev env only.
   - [x] Deploy on EC2 with Nginx & supervisorctl.
