@@ -3,8 +3,7 @@
 See all your starred Github repositories at one single place.Sort and filter by stars, forks, language etc. [Screenshots Here!](#screenshot)
 I built this sheerly to solve my problem of not being go back and find repositories all in one place.
 
-### Demo:
-http://13.232.52.9/
+### Demo: https://github-telescope.com/
 
 
 ### Technologies:
