@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux'
 import produce from 'immer'
 import { IStarredReposState, IAction } from './interface'
-import { FETCH_STARRED_REPOS, RECIEVE_STARRED_REPOS } from './constants'
+import {
+	FETCH_STARRED_REPOS,
+	RECIEVE_STARRED_REPOS,
+	FETCH_MORE_REPOS,
+} from './constants'
 
 //#region Selectors
 export const getStarredReposState = (state): IStarredReposState =>
@@ -23,6 +27,11 @@ const reducer = (
 	produce(state, draft => {
 		switch (action.type) {
 			case FETCH_STARRED_REPOS:
+				draft.isLoading = true
+				draft.repos = []
+				draft.nextLink = ''
+				return
+			case FETCH_MORE_REPOS:
 				draft.isLoading = true
 				return
 			case RECIEVE_STARRED_REPOS:

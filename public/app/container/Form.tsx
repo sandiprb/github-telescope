@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { fetchStarredRepos } from '../actions'
 import '../styles/App.pcss'
 import { IRepo } from '../interface'
 import { Container, Row } from '../components/SubComponents'
+import * as Utils from '../Utils'
 
 type IFormEvent = React.FormEvent<HTMLFormElement>
 
@@ -23,6 +23,10 @@ class App extends React.Component<IAppProps, IAppStates> {
 		this.state = {
 			username: '',
 		}
+	}
+
+	componentDidMount() {
+		Utils.updatePageTitle('Welcome')
 	}
 
 	private handleSubmitForm = (e: IFormEvent) => {

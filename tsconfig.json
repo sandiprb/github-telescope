@@ -7,7 +7,9 @@
 		"module": "commonjs",
 		"target": "es5",
 		"jsx": "react",
-		"lib": ["dom", "es5", "es2015", "es2015.promise"]
+		"lib": ["dom", "es5", "es2015", "es2015.promise"],
+		"experimentalDecorators": true,
+		"allowJs": true
 	},
 	"exclude": ["node_modules", "build"],
 	"include": ["**/*.ts", "**/*.tsx"]

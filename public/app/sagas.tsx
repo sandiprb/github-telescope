@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects'
 import axios from 'axios'
 import { IAction } from './interface'
 import { recievedStarredRepos } from './actions'
-import { FETCH_STARRED_REPOS } from './constants'
+import { FETCH_STARRED_REPOS, FETCH_MORE_REPOS } from './constants'
 import { extractLinksFromHeaders } from './Utils'
 import { getNextLink } from './reducer'
 import { history } from './index'
@@ -27,7 +27,10 @@ function* fetchStarredRepos(action: IAction) {
 	try {
 		const { payload } = action
 		const state = yield select()
-		const uri = getNextLink(state) || ENDPOINTS.starredRepos(payload.username)
+		const uri =
+			payload.nextLink ||
+			getNextLink(state) ||
+			ENDPOINTS.starredRepos(payload.username)
 		const { repos, nextLink } = yield call(API.fetchStarredRepos, uri)
 		yield put(recievedStarredRepos(repos, nextLink))
 	} catch (e) {
@@ -38,4 +41,5 @@ function* fetchStarredRepos(action: IAction) {
 
 export default function* rootSaga() {
 	yield takeLatest(FETCH_STARRED_REPOS, fetchStarredRepos)
+	yield takeLatest(FETCH_MORE_REPOS, fetchStarredRepos)
 }
