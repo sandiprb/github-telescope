@@ -1,4 +1,9 @@
-import { FETCH_STARRED_REPOS, RECIEVE_STARRED_REPOS } from './constants'
+import {
+	FETCH_STARRED_REPOS,
+	RECIEVE_STARRED_REPOS,
+	FETCH_MORE_REPOS,
+	FILTER_REPOS,
+} from './constants'
 import { IRepo } from './interface'
 
 export const fetchStarredRepos = (username: string) => ({
@@ -7,10 +12,23 @@ export const fetchStarredRepos = (username: string) => ({
 		username,
 	},
 })
+export const fetchMoreRepos = (username: string, nextLink: string) => ({
+	type: FETCH_MORE_REPOS,
+	payload: {
+		username,
+		nextLink,
+	},
+})
 export const recievedStarredRepos = (repos: IRepo[], nextLink: string) => ({
 	type: RECIEVE_STARRED_REPOS,
 	payload: {
 		repos,
 		nextLink,
+	},
+})
+export const filterRepos = (languages: IRepo['language'][]) => ({
+	type: FILTER_REPOS,
+	payload: {
+		languages,
 	},
 })

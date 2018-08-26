@@ -13,6 +13,13 @@ export function extractLinksFromHeaders(headers: AxiosResponse['headers']) {
 	}
 }
 
+export const updatePageTitle = (title?: string) => {
+	const mainTitle = '| Github TeleScope'
+	const titleNode = document.getElementsByTagName('title')[0]
+	titleNode &&
+		(titleNode.innerText = `${title ? title : 'Welcome'} ${mainTitle}`)
+}
+
 const MONTH_MAP = {
 	0: 'Jan',
 	1: 'Feb',

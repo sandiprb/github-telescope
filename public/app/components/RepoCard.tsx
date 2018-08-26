@@ -31,6 +31,9 @@ export function RepoCards({
 	onCardDetail,
 	detailCardNodeId,
 }: IRepoCards) {
+	if (!repos.length) {
+		return <div> No matching repos found! </div>
+	}
 	return (
 		<div className="repo-card__row row">
 			{repos.map(repo => (
