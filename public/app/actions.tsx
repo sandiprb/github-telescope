@@ -2,6 +2,7 @@ import {
 	FETCH_STARRED_REPOS,
 	RECIEVE_STARRED_REPOS,
 	FETCH_MORE_REPOS,
+	FILTER_REPOS,
 } from './constants'
 import { IRepo } from './interface'
 
@@ -23,5 +24,11 @@ export const recievedStarredRepos = (repos: IRepo[], nextLink: string) => ({
 	payload: {
 		repos,
 		nextLink,
+	},
+})
+export const filterRepos = (languages: IRepo['language'][]) => ({
+	type: FILTER_REPOS,
+	payload: {
+		languages,
 	},
 })

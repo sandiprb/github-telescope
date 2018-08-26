@@ -2,6 +2,8 @@ export interface IStarredReposState {
 	isLoading?: boolean
 	nextLink?: string
 	repos?: IRepo[]
+	languages?: IRepo['language'][]
+	filterByLanguages?: IRepo['language'][]
 }
 
 export interface IAction {
